@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Controle Aquaponia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <header class="dashboard-header">
+            <h1><i class="fas fa-water"></i>Estação Metereológica</h1>
+
+            <!-- indica status real da placa -->
+            <div class="status-indicators">
+                <div class="indicator" id="systemStatus">
+                    <span class="indicator-label">Status do hardware:</span>
+                    <span class="indicator-value" id="statusValue">--</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+
+            <!-- Seção de Monitoramento em Tempo Real -->
+            <section class="card realtime-data">
+                <h2><i class="fas fa-chart-line"></i> Dados em Tempo Real</h2>
+                <div class="sensor-grid">
+
+                    <div class="sensor-item">
+                        <div class="sensor-icon temperature">
+                            <i class="fas fa-thermometer-half"></i> 
+                        </div>
+                        <div class="sensor-info">
+                            <span class="sensor-label">Temperatura</span>
+                            <span class="sensor-value" id="temperature">--</span>
+                            <span class="sensor-unit">°C</span>
+                        </div>
+                    </div>
+                    
+                    <div class="sensor-item">
+                        <div class="sensor-icon level">
+                            <i class="fas fa-ruler-vertical"></i>
+                        </div>
+                        <div class="sensor-info">
+                            <span class="sensor-label">Nível da Água</span>
+                            <span class="sensor-value" id="level">--</span>
+                            <span class="sensor-unit">cm</span>
+                        </div>
+                    </div>
+                    
+                    <div class="sensor-item">
+                        <div class="sensor-icon pump" id="pumpIcon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="sensor-info">
+                            <span class="sensor-label">Bomba</span>
+                            <span class="sensor-value" id="statusBomba">--</span>
+                        </div>
+                    </div>
+                    
+                    <div class="sensor-item">
+                        <div class="sensor-icon heater" id="heaterIcon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="sensor-info">
+                            <span class="sensor-label">Aquecedor</span>
+                            <span class="sensor-value" id="statusAquecedor">--</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção de Controles -->
+            <div class="controls-grid">
+                <!-- Controle Manual -->
+                <section class="card manual-control">
+                    <h2><i class="fas fa-sliders-h"></i> Controle Telhado Observatório</h2>
+                    
+                    <div class="control-group">
+                        <div class="button-group">
+                            <button class="btn btn-success" id="bombaOn" title="Após clicar aguarde 15 segundos para o próximo comando">
+                                <i class="fas fa-power-off"></i> Ligar
+                            </button>
+                            <button class="btn btn-danger" id="bombaOff" title="Após clicar aguarde 15 segundos para o próximo comando">
+                                <i class="fas fa-power-off"></i> Desligar
+                            </button>
+                        </div>
+                    </div>
+            </div>
+
+            <!-- Botão de Acesso aos Dados -->
+            <div class="action-buttons">
+                <button class="btn btn-primary btn-sm" onclick="window.location.href='dados.html'">
+                    <i class="fas fa-database"></i> Acessar Dados Históricos
+                </button>
+            </div>
+            
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
