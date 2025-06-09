@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Controle Aquaponia</title>
+    <title>Monitoramento Climático Observatório</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="dashboard">
+        
         <header class="dashboard-header">
             <h1><i class="fas fa-water"></i>Estação Metereológica</h1>
 
@@ -26,68 +27,113 @@
             <!-- Seção de Monitoramento em Tempo Real -->
             <section class="card realtime-data">
                 <h2><i class="fas fa-chart-line"></i> Dados em Tempo Real</h2>
-                <div class="sensor-grid">
+                <dados class="sensor-grid">
 
+                    <!--Indicação de temperatura 1 --> 
                     <div class="sensor-item">
-                        <div class="sensor-icon temperature">
+                        <div class="sensor-icon bolavermelha">
                             <i class="fas fa-thermometer-half"></i> 
                         </div>
                         <div class="sensor-info">
-                            <span class="sensor-label">Temperatura</span>
-                            <span class="sensor-value" id="temperature">--</span>
+                            <span class="sensor-label">Temperatura 1</span>
+                            <span class="sensor-value" id="temperatura1">--</span>
                             <span class="sensor-unit">°C</span>
                         </div>
                     </div>
-                    
+
+                    <!--Indicação de temperatura 2 -->
                     <div class="sensor-item">
-                        <div class="sensor-icon level">
-                            <i class="fas fa-ruler-vertical"></i>
+                        <div class="sensor-icon bolavermelha">
+                            <i class="fas fa-thermometer-half"></i> 
                         </div>
                         <div class="sensor-info">
-                            <span class="sensor-label">Nível da Água</span>
-                            <span class="sensor-value" id="level">--</span>
-                            <span class="sensor-unit">cm</span>
+                            <span class="sensor-label">Temperatura 2</span>
+                            <span class="sensor-value" id="temperatura2">--</span>
+                            <span class="sensor-unit">°C</span>
                         </div>
                     </div>
-                    
+
+                    <!--Indicação de Pressão -->
                     <div class="sensor-item">
-                        <div class="sensor-icon pump" id="pumpIcon">
+                        <div class="sensor-icon bolaazul">
+                            <i class="fa-solid fa-gauge-high"></i>
+                        </div>
+                        <div class="sensor-info">
+                            <span class="sensor-label">Pressão</span>
+                            <span class="sensor-value" id="pressao">--</span>
+                            <span class="sensor-unit">hPa</span>
+                        </div>
+                    </div>
+
+                    <!--Indicação de Altitude -->
+                    <div class="sensor-item">
+                        <div class="sensor-icon bolaazul">
+                            <i class="fa-solid fa-mountain"></i>
+                        </div>
+                        <div class="sensor-info">
+                            <span class="sensor-label">Altitude</span>
+                            <span class="sensor-value" id="altitude">--</span>
+                            <span class="sensor-unit">m</span>
+                        </div>
+                    </div>
+
+                    <!--Indicação de Umidade -->
+                    <div class="sensor-item">
+                        <div class="sensor-icon bolaazul">
                             <i class="fas fa-tint"></i>
                         </div>
                         <div class="sensor-info">
-                            <span class="sensor-label">Bomba</span>
-                            <span class="sensor-value" id="statusBomba">--</span>
+                            <span class="sensor-label">Umidade</span>
+                            <span class="sensor-value" id="umidade">--</span>
+                            <span class="sensor-unit">%</span>
                         </div>
                     </div>
-                    
+
+                    <!--Indicação de Chuva -->
                     <div class="sensor-item">
-                        <div class="sensor-icon heater" id="heaterIcon">
-                            <i class="fas fa-fire"></i>
+                        <div class="sensor-icon bolaazul">
+                            <i class="fa-solid fa-umbrella"></i>
                         </div>
                         <div class="sensor-info">
-                            <span class="sensor-label">Aquecedor</span>
-                            <span class="sensor-value" id="statusAquecedor">--</span>
+                            <span class="sensor-label">Chuva</span>
+                            <span class="sensor-value" id="umidade">--</span>
+                            <span class="sensor-unit">%</span>
                         </div>
                     </div>
-                </div>
+
+                </dados>
             </section>
 
             <!-- Seção de Controles -->
             <div class="controls-grid">
+
                 <!-- Controle Manual -->
                 <section class="card manual-control">
                     <h2><i class="fas fa-sliders-h"></i> Controle Telhado Observatório</h2>
-                    
-                    <div class="control-group">
-                        <div class="button-group">
-                            <button class="btn btn-success" id="bombaOn" title="Após clicar aguarde 15 segundos para o próximo comando">
-                                <i class="fas fa-power-off"></i> Ligar
+
+                    <controle class="control-group">
+                        <botoes class="button-group">
+                            <button class="btn btn-success" id="abrir" title="Após clicar aguarde 15 segundos para o próximo comando">
+                                <i class="fas fa-power-off"></i> Abrir
                             </button>
-                            <button class="btn btn-danger" id="bombaOff" title="Após clicar aguarde 15 segundos para o próximo comando">
-                                <i class="fas fa-power-off"></i> Desligar
+                            <button class="btn btn-danger" id="fechar" title="Após clicar aguarde 15 segundos para o próximo comando">
+                                <i class="fas fa-power-off"></i> Fechar
                             </button>
-                        </div>
-                    </div>
+                        </botoes>
+
+                        <!-- Indicação do Telhado -->                    
+                        <indtelha class="sensor-item">
+                            <div class="sensor-icon bolaverde">
+                                <i class="fa-solid fa-house"></i>
+                            </div>
+                            <div class="sensor-info">
+                                <span class="sensor-label">Telhado</span>
+                                <span class="sensor-value" id="statusTelhado">--</span>
+                            </div>
+                        </indtelha>
+                    </controle>
+
+                </section>    
             </div>
 
             <!-- Botão de Acesso aos Dados -->
@@ -100,6 +146,9 @@
         </main>
     </div>
 
-    <script src="script.js"></script>
+    <footer>
+        <script src="script.js"></script>
+    </footer>
+
 </body>
 </html>

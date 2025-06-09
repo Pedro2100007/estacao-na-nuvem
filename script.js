@@ -1,57 +1,70 @@
 // Configurações do ThingSpeak
-const channelID = '2840207';
-const readAPIKey = '5UWNQD21RD2A7QHG';
-const writeAPIKey = '9NG6QLIN8UXLE2AH';
+const channelID = '2555542';
+const readAPIKey = '62NAEIAGZDOUMAX8';
+const writeAPIKey = 'HM9V6JB10EKLMUZ8';
 
-const STATUS_CHANNEL_ID = '2533413';
-const STATUS_READ_API_KEY = '7ORUZSCMCUEUAQ3Z';
-const STATUS_TIMEOUT = 60000; // 60 segundos
+//const STATUS_CHANNEL_ID = '2533413';
+//const STATUS_READ_API_KEY = '7ORUZSCMCUEUAQ3Z';
+//const STATUS_TIMEOUT = 60000; // 60 segundos
 
 // Variáveis de controle
-let lastCommandTime = 0;
-const COMMAND_DELAY = 15000; // 15 segundos
+let TempoUltComando= 0; //Pega o tempo quando escreve na "Função atualizar campo"
+const TempoEspComando = 15000; // 15 segundos - intervalo de tempo para escrever na "Função atualizar campo"
 
 // Elementos da interface
 const elements = {
-  temperature: document.getElementById('temperature'),
-  level: document.getElementById('level'),
-  statusBomba: document.getElementById('statusBomba'),
-  statusAquecedor: document.getElementById('statusAquecedor'),
-  bombaOn: document.getElementById('bombaOn'),
-  bombaOff: document.getElementById('bombaOff'),
-  pumpIcon: document.getElementById('pumpIcon'),
-  heaterIcon: document.getElementById('heaterIcon')
+  temperatura1: document.getElementById('temperatura1'),
+  temperatura2: document.getElementById('temperatura2'),
+  pressao: document.getElementById('pressao'),
+  altitude: document.getElementById('altitude'),
+  umidade: document.getElementById('umidade'),
+  chuva: document.getElementById('chuva'),
+  statusTelhado: document.getElementById('statusTelhado'),
+  abrir: document.getElementById('abrir'),
+  fechar: document.getElementById('fechar'),
+  telhadoIcon: document.getElementById('telhadoIcon'),
 };
 
-// Função para atualizar a interface
-function updateUI(data) {
+// Função para atualizar a interface HTML
+function atualizaUI(data) {
   console.log("Dados recebidos para atualização:", data);
     
   if (data.field1 !== undefined && data.field1 !== null) {
-    elements.temperature.textContent = parseFloat(data.field1).toFixed(1);
+    elements.temperatura1.textContent = parseFloat(data.field1).toFixed(1);
+  }
+
+  if (data.field4 !== undefined && data.field4 !== null) {
+    elements.temperatura2.textContent = parseFloat(data.field4).toFixed(1);
   }
   
   if (data.field2 !== undefined && data.field2 !== null) {
-    elements.level.textContent = parseFloat(data.field2).toFixed(1);
+    elements.pressao.textContent = parseFloat(data.field2).toFixed(1);
+  }
+
+  if (data.field3 !== undefined && data.field3 !== null) {
+    elements.altitude.textContent = parseFloat(data.field3).toFixed(1);
+  }
+
+    if (data.field5 !== undefined && data.field5 !== null) {
+    elements.umidade.textContent = parseFloat(data.field3).toFixed(1);
+  }
+
+    if (data.field6 !== undefined && data.field6 !== null) {
+    elements.chuva.textContent = parseFloat(data.field3).toFixed(1);
   }
   
   if (data.field3 !== undefined && data.field3 !== null) {
-    const bombaState = parseInt(data.field3);
-    elements.statusBomba.textContent = bombaState ? 'Ligado' : 'Desligado';
-    elements.statusBomba.className = bombaState ? 'sensor-value on' : 'sensor-value off';
-    elements.pumpIcon.className = bombaState ? 'sensor-icon pump on' : 'sensor-icon pump off';
+    const telhadoState = parseInt(data.field3);
+    elements.statusTelhado.textContent = telhadoState ? 'Ligado' : 'Desligado';
+    elements.statusTelhado.className = telhadoState ? 'sensor-value on' : 'sensor-value off';
+    elements.telhadoIcon.className = telhadoState ? 'sensor-icon pump on' : 'sensor-icon pump off';
   }
   
-  if (data.field4 !== undefined && data.field4 !== null) {
-    const resistenciaState = parseInt(data.field4);
-    elements.statusAquecedor.textContent = resistenciaState ? 'Ligado' : 'Desligado';
-    elements.statusAquecedor.className = resistenciaState ? 'sensor-value on' : 'sensor-value off';
-    elements.heaterIcon.className = resistenciaState ? 'sensor-icon heater on' : 'sensor-icon heater off';
-  }
+
 }
 
 // Função para buscar dados do ThingSpeak
-async function fetchData() {
+async function pegaDados() {
   try {
     const response = await fetch(`https://api.thingspeak.com/channels/${channelID}/feeds/last.json?api_key=${readAPIKey}`);
     
@@ -64,7 +77,8 @@ async function fetchData() {
       throw new Error("Dados vazios recebidos da API");
     }
     
-    updateUI(data);
+    //chama função de atualizar HTML 
+    atualizaUI(data);
     return data;
     
   } catch (error) {
@@ -100,14 +114,14 @@ async function updateSystemStatus() {
         }
         
         // Verifica o valor do field3 (0 = Manual, 1 = Automático)
-        const status = parseInt(data.field3);
-        if (status === 1) {
-            setStatus('AUTOMÁTICO', 'automatic');
-        } else if (status === 0) {
-            setStatus('MANUAL', 'manual');
-        } else {
-            setStatus('DESCONECTADO', 'disconnected');
-        }
+        //const status = parseInt(data.field3);
+        //if (status === 1) {
+           // setStatus('AUTOMÁTICO', 'automatic');
+       // } else if (status === 0) {
+            //setStatus('MANUAL', 'manual');
+        //} else {
+            //setStatus('DESCONECTADO', 'disconnected');
+        //}
         
         function setStatus(text, type) {
             statusElement.textContent = text;
@@ -131,11 +145,11 @@ async function updateSystemStatus() {
     }
 }
 
-// Função para atualizar um campo no ThingSpeak
+// Função para atualizar campo no ThingSpeak
 async function updateField(field, value) {
   const now = Date.now();
-  if (now - lastCommandTime < COMMAND_DELAY) {
-    const waitTime = Math.ceil((COMMAND_DELAY - (now - lastCommandTime))/1000);
+  if (now - TempoUltComando< TempoEspComando) {
+    const waitTime = Math.ceil((TempoEspComando - (now - lastCommandTime))/1000);
     alert(`Aguarde ${waitTime} segundos antes de enviar outro comando.`);
     return false;
   }
@@ -149,8 +163,8 @@ async function updateField(field, value) {
     const result = await response.text();
     console.log(`Campo ${field} atualizado. Resposta:`, result);
     
-    lastCommandTime = Date.now();
-    await fetchData(); // Atualiza a interface após mudança
+    TempoUltComando= Date.now();
+    await pegaDados(); // Atualiza a interface após mudança
     return true;
     
   } catch (error) {
@@ -159,14 +173,14 @@ async function updateField(field, value) {
   }
 }
 
-// Configuração dos event listeners
+// Configuração dos event listeners da interface HTML
 function setupEventListeners() {
   // Controles da bomba
-  elements.bombaOn.addEventListener('click', () => {
+  elements.abrir.addEventListener('click', () => {
     sendCommand('bomba', 1);
   });
 
-  elements.bombaOff.addEventListener('click', () => {
+  elements.fechar.addEventListener('click', () => {
     sendCommand('bomba', 0);
   });
 }
@@ -192,10 +206,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     await updateSystemStatus();
     
     // Depois carrega os dados iniciais
-    await fetchData();
+    await pegaDados();
     
     // Atualização periódica
-    setInterval(fetchData, 5000);
+    setInterval(pegaDados, 5000);
     setInterval(updateSystemStatus, 5000);
     console.log("Configuração completa. Monitorando dados...");
 });

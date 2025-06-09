@@ -36,6 +36,10 @@ body {
   overflow: hidden;
 }
 
+.dashboard-main {
+  padding: 15px;
+}
+
 .dashboard-header {
   background-color: #007bff;
   color: white;
@@ -74,10 +78,6 @@ body {
 
 .indicator-value {
   font-weight: normal;
-}
-
-.dashboard-main {
-  padding: 15px;
 }
 
 .card {
@@ -133,20 +133,16 @@ body {
   color: white;
 }
 
-.sensor-icon.temperature {
+.sensor-icon.bolavermelha {
   background-color: var(--danger-color);
 }
 
-.sensor-icon.level {
+.sensor-icon.bolaazul {
   background-color: var(--primary-color);
 }
 
-.sensor-icon.pump {
+.sensor-icon.bolaverde {
   background-color: var(--secondary-color);
-}
-
-.sensor-icon.heater {
-  background-color: var(--warning-color);
 }
 
 .sensor-info {
@@ -188,16 +184,22 @@ body {
 
 .control-group {
   margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 }
 
 .button-group {
   display: flex;
-  gap: 8px;
+  gap: 15px;
   width: 200px;
   padding: 8px 10px;
   font-size: 13px;
   justify-content: center;
 }
+
+
 
 .btn {
   padding: 10px 15px;
@@ -308,4 +310,17 @@ body {
 
 #systemStatus.disconnected {
     background-color: rgba(231, 76, 60, 0.2) !important;
+}
+
+
+/* Ajuste para telas pequenas */
+@media (max-width: 480px) {
+    .button-group {
+        flex-direction: row;
+    }
+    
+    .btn {
+        min-width: auto;
+        padding: 10px;
+    }
 }
