@@ -8,7 +8,7 @@
   --text-color: #2c3e50;
   --text-light: #7f8c8d;
   --card-bg: #ffffff;
-  --body-bg: #f5f7fa;
+  --body-bg: rgb(127, 128, 130);
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s ease;
 }
@@ -21,15 +21,15 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--body-bg);
+  background-color: var(--body-bg); 
   color: var(--text-color);
   line-height: 1.4;
   padding: 15px;
 }
 
 .dashboard {
-  max-width: 1000px;
-  margin: 0 auto;
+  max-width: 1000px;               /* Largura do dashboard */
+  margin: 0 auto;                  /* Centraliza no meio da tela */
   background-color: var(--card-bg);
   border-radius: 8px;
   box-shadow: var(--shadow);
@@ -37,16 +37,16 @@ body {
 }
 
 .dashboard-main {
-  padding: 15px;
+  padding: 15px;                  /* Espaçamento interno */
 }
 
 .dashboard-header {
   background-color: #007bff;
   color: white;
   padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: flex;                  /* permite que seus filhos (os "flex items") sejam organizados e alinhados de forma flexível */
+  justify-content: space-between; /*alinha flex items no eixo principal. O 1º é alinhado ao início, o último ao final, e os demais entre eles. */
+  align-items: center;            /*alinha flex items ao longo do eixo transversal. Centraliza os itens no eixo transversal. */
 }
 
 .dashboard-header h1 {
@@ -69,7 +69,7 @@ body {
   background-color: rgba(255, 255, 255, 0.2);
   padding: 4px 8px;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .indicator-label {
@@ -89,7 +89,7 @@ body {
 }
 
 .card h2 {
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 12px;
   color: var(--primary-color);
   display: flex;
@@ -151,7 +151,8 @@ body {
 }
 
 .sensor-label {
-  font-size: 12px;
+  font-weight: bold;
+  font-size: 15px;
   color: var(--text-light);
 }
 
@@ -162,7 +163,8 @@ body {
 }
 
 .sensor-unit {
-  font-size: 12px;
+  font-weight: bold;
+  font-size: 15px;
   color: var(--text-light);
 }
 
@@ -205,14 +207,16 @@ body {
   padding: 10px 15px;
   border: none;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 500;
+  text-align: center;
   cursor: pointer;
   transition: var(--transition);
   display: flex;
   align-items: center;
   gap: 8px;
-  min-width: 100px;
+  min-width: 150px;
+  height: 40px;
 }
 
 .btn:hover {
@@ -224,21 +228,21 @@ body {
   transform: translateY(0);
 }
 
-.btn-success {
+.btn-abrir {
   background-color: var(--secondary-color);
   color: white;
 }
 
-.btn-success:hover {
+.btn-abrir:hover {
   background-color: #27ae60;
 }
 
-.btn-danger {
+.btn-fechar {
   background-color: var(--danger-color);
   color: white;
 }
 
-.btn-danger:hover {
+.btn-fechar:hover {
   background-color: #c0392b;
 }
 

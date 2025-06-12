@@ -1,10 +1,10 @@
-// Configurações do ThingSpeak
+// Configurações do ThingSpeak Leitura
 const channelID = '2555542';
 const readAPIKey = '62NAEIAGZDOUMAX8';
 const writeAPIKey = 'HM9V6JB10EKLMUZ8';
-
-//const STATUS_CHANNEL_ID = '2533413';
-//const STATUS_READ_API_KEY = '7ORUZSCMCUEUAQ3Z';
+// Configurações do ThingSpeak Escrita
+//const STATUS_CHANNEL_ID = '2987110';
+//const STATUS_READ_API_KEY = 'VEFPKAID3NATF5P7;
 //const STATUS_TIMEOUT = 60000; // 60 segundos
 
 // Variáveis de controle
@@ -46,18 +46,18 @@ function atualizaUI(data) {
   }
 
     if (data.field5 !== undefined && data.field5 !== null) {
-    elements.umidade.textContent = parseFloat(data.field3).toFixed(1);
+    elements.umidade.textContent = parseFloat(data.field5).toFixed(1);
   }
 
     if (data.field6 !== undefined && data.field6 !== null) {
-    elements.chuva.textContent = parseFloat(data.field3).toFixed(1);
+    elements.chuva.textContent = parseFloat(data.field6).toFixed(1);
   }
   
-  if (data.field3 !== undefined && data.field3 !== null) {
-    const telhadoState = parseInt(data.field3);
-    elements.statusTelhado.textContent = telhadoState ? 'Ligado' : 'Desligado';
-    elements.statusTelhado.className = telhadoState ? 'sensor-value on' : 'sensor-value off';
-    elements.telhadoIcon.className = telhadoState ? 'sensor-icon pump on' : 'sensor-icon pump off';
+  if (data.field7 !== undefined && data.field7 !== null) {  //verifica se data.field7 existe e não é nulo
+    const telhadoState = parseInt(data.field7);             //Se o campo existir, converte seu valor para um número inteiro
+    elements.statusTelhado.textContent = telhadoState ? 'Aberto' : 'Fechado'; //Se verdade (diferente de zero) = "Aberto", se falso (0) =  "Fechado".
+    elements.statusTelhado.className = telhadoState ? 'sensor-value on' : 'sensor-value off'; //Define a classe CSS de elements.statusTelhado
+    elements.telhadoIcon.className = telhadoState ? 'sensor-icon pump on' : 'sensor-icon pump off'; //Atualiza a classe do ícone (elements.telhadoIcon) 
   }
   
 
@@ -173,6 +173,7 @@ async function updateField(field, value) {
   }
 }
 
+//!!!!!!! ajustar para abrir telhado
 // Configuração dos event listeners da interface HTML
 function setupEventListeners() {
   // Controles da bomba
